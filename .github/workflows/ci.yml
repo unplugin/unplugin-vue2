@@ -62,9 +62,7 @@ jobs:
     strategy:
       matrix:
         node: [16.x, 18.x]
-        # Disable Windows because it is quite slow (test timeout)
-        # os: [ubuntu-latest, windows-latest, macos-latest]
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
       fail-fast: false
 
     steps:
