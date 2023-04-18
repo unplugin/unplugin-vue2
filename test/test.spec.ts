@@ -21,7 +21,7 @@ beforeAll(async () => {
 
 afterAll(postTest, TIMEOUT);
 
-describe("vite-plugin-vue2", () => {
+describe("unplugin-vue2", () => {
   describe("dev", () => {
     declareTests(false);
   });
