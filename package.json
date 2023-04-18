@@ -1,6 +1,6 @@
 {
   "name": "unplugin-vue2",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "packageManager": "pnpm@7.32.1",
   "author": "Ray <i@mk1.io> (@so1ve)",
   "description": "",
