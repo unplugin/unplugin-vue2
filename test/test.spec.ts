@@ -13,11 +13,13 @@ import {
   updateFile,
 } from "./util";
 
+const TIMEOUT = 1000000;
+
 beforeAll(async () => {
   await preTest();
-}, 1000000);
+}, TIMEOUT);
 
-afterAll(postTest);
+afterAll(postTest, TIMEOUT);
 
 describe("vite-plugin-vue2", () => {
   describe("dev", () => {
@@ -34,11 +36,11 @@ export function declareTests(isBuild: boolean) {
 
   beforeAll(async () => {
     page = await startServer(isBuild);
-  });
+  }, TIMEOUT);
 
   afterAll(async () => {
     await killServer();
-  });
+  }, TIMEOUT);
 
   test("SFC <script setup>", async () => {
     const el = (await page.$(".script-setup"))!;
