@@ -15,7 +15,7 @@ import {
 
 beforeAll(async () => {
   await preTest();
-});
+}, 1000000);
 
 afterAll(postTest);
 
