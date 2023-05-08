@@ -1,6 +1,6 @@
 <script>
-import TestRecursive from "./recursive/TestRecursive.vue";
 import TestAsyncComponent from "./async/TestAsyncComponent.vue";
+import TestRecursive from "./recursive/TestRecursive.vue";
 
 export default {
   name: "TestRecursion",

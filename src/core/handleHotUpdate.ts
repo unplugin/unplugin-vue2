@@ -1,20 +1,21 @@
-import type { SFCBlock, SFCDescriptor } from "vue/compiler-sfc";
 import type { HmrContext, ModuleNode } from "vite";
+import type { SFCBlock, SFCDescriptor } from "vue/compiler-sfc";
 
-import { createDescriptor, getDescriptor, setPrevDescriptor } from "./utils/descriptorCache";
 import { getResolvedScript, setResolvedScript } from "./script";
+import {
+  createDescriptor,
+  getDescriptor,
+  setPrevDescriptor,
+} from "./utils/descriptorCache";
 
 import type { ResolvedOptions } from ".";
 
 const directRequestRE = /(\?|&)direct\b/;
 
-/**
- * Vite-specific HMR handling
- */
+/** Vite-specific HMR handling */
 export async function handleHotUpdate(
   { file, modules, read }: HmrContext,
   options: ResolvedOptions,
-  // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): Promise<ModuleNode[] | void> {
   const prevDescriptor = getDescriptor(file, options, false);
   if (!prevDescriptor) {
@@ -38,11 +39,13 @@ export async function handleHotUpdate(
   if (scriptChanged) {
     let scriptModule: ModuleNode | undefined;
     if (
-      (descriptor.scriptSetup?.lang && !descriptor.scriptSetup.src)
-      || (descriptor.script?.lang && !descriptor.script.src)
+      (descriptor.scriptSetup?.lang && !descriptor.scriptSetup.src) ||
+      (descriptor.script?.lang && !descriptor.script.src)
     ) {
       const scriptModuleRE = new RegExp(
-        `type=script.*&lang\.${descriptor.scriptSetup?.lang ?? descriptor.script?.lang}$`,
+        `type=script.*&lang\.${
+          descriptor.scriptSetup?.lang ?? descriptor.script?.lang
+        }$`,
       );
       scriptModule = modules.find((m) => scriptModuleRE.test(m.url));
     }
@@ -89,9 +92,9 @@ export async function handleHotUpdate(
       didUpdateStyle = true;
       const mod = modules.find(
         (m) =>
-          m.url.includes(`type=style&index=${i}`)
-          && m.url.endsWith(`.${next.lang ?? "css"}`)
-          && !directRequestRE.test(m.url),
+          m.url.includes(`type=style&index=${i}`) &&
+          m.url.endsWith(`.${next.lang ?? "css"}`) &&
+          !directRequestRE.test(m.url),
       );
       if (mod) {
         affectedModules.add(mod);
@@ -118,7 +121,9 @@ export async function handleHotUpdate(
     for (const [i, next] of nextCustoms.entries()) {
       const prev = prevCustoms[i];
       if (!prev || !isEqualBlock(prev, next)) {
-        const mod = modules.find((m) => m.url.includes(`type=${prev.type}&index=${i}`));
+        const mod = modules.find((m) =>
+          m.url.includes(`type=${prev.type}&index=${i}`),
+        );
         if (mod) {
           affectedModules.add(mod);
         } else {
@@ -138,42 +143,51 @@ export async function handleHotUpdate(
     if (!templateModule) {
       affectedModules.add(mainModule);
     } else if (mainModule && !affectedModules.has(mainModule)) {
-      const styleImporters = [...mainModule.importers].filter((m) => /\.css($|\?)/.test(m.url));
+      const styleImporters = [...mainModule.importers].filter((m) =>
+        /\.css($|\?)/.test(m.url),
+      );
       styleImporters.forEach((m) => affectedModules.add(m));
     }
   }
   if (didUpdateStyle) {
     updateType.push("style");
   }
+
   return [...affectedModules].filter(Boolean) as ModuleNode[];
 }
 
 export function isEqualBlock(a: SFCBlock | null, b: SFCBlock | null): boolean {
-  if (!a && !b) { return true; }
-  if (!a || !b) { return false; }
+  if (!a && !b) {
+    return true;
+  }
+  if (!a || !b) {
+    return false;
+  }
   // src imports will trigger their own updates
-  if (a.src && b.src && a.src === b.src) { return true; }
-  if (a.content !== b.content) { return false; }
+  if (a.src && b.src && a.src === b.src) {
+    return true;
+  }
+  if (a.content !== b.content) {
+    return false;
+  }
   const keysA = Object.keys(a.attrs);
   const keysB = Object.keys(b.attrs);
   if (keysA.length !== keysB.length) {
     return false;
   }
+
   return keysA.every((key) => a.attrs[key] === b.attrs[key]);
 }
 
-export function isOnlyTemplateChanged(
+export const isOnlyTemplateChanged = (
   prev: SFCDescriptor,
   next: SFCDescriptor,
-): boolean {
-  return (
-    !hasScriptChanged(prev, next)
-    && prev.styles.length === next.styles.length
-    && prev.styles.every((s, i) => isEqualBlock(s, next.styles[i]))
-    && prev.customBlocks.length === next.customBlocks.length
-    && prev.customBlocks.every((s, i) => isEqualBlock(s, next.customBlocks[i]))
-  );
-}
+): boolean =>
+  !hasScriptChanged(prev, next) &&
+  prev.styles.length === next.styles.length &&
+  prev.styles.every((s, i) => isEqualBlock(s, next.styles[i])) &&
+  prev.customBlocks.length === next.customBlocks.length &&
+  prev.customBlocks.every((s, i) => isEqualBlock(s, next.customBlocks[i]));
 
 function hasScriptChanged(prev: SFCDescriptor, next: SFCDescriptor): boolean {
   if (!isEqualBlock(prev.script, next.script)) {

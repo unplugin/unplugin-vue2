@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import ScriptSetup from "./ScriptSetup.vue";
-import TestBlockSrcImport from "./src-import/TestBlockSrcImport.vue";
-import TestScopedCss from "./css/TestScopedCss.vue";
 import TestCssModules from "./css/TestCssModules.vue";
+import TestCssVBind from "./css/TestCssVBind.vue";
 import TestEmptyCss from "./css/TestEmptyCss.vue";
+import TestScopedCss from "./css/TestScopedCss.vue";
 import TestCustomBlock from "./custom/TestCustomBlock.vue";
 import TestHmr from "./hmr/TestHmr.vue";
+import ScriptSetup from "./ScriptSetup.vue";
+import TestBlockSrcImport from "./src-import/TestBlockSrcImport.vue";
 import TestAssets from "./test-assets/TestAssets.vue";
-import TestES2020Features from "./TestES2020Features.vue";
 import TestComponent from "./test-component/TestComponent.vue";
-import TestCssVBind from "./css/TestCssVBind.vue";
+import TestES2020Features from "./TestES2020Features.vue";
 </script>
 
 <template>

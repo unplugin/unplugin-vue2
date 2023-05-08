@@ -1,6 +1,6 @@
+import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { createHash } from "node:crypto";
 
 import slash from "slash";
 import type { SFCDescriptor } from "vue/compiler-sfc";
@@ -15,6 +15,9 @@ export interface SFCParseResult {
 
 const cache = new Map<string, SFCDescriptor>();
 const prevCache = new Map<string, SFCDescriptor | undefined>();
+
+const getHash = (text: string): string =>
+  createHash("sha256").update(text).digest("hex").slice(0, 8);
 
 export function createDescriptor(
   filename: string,
@@ -40,12 +43,13 @@ export function createDescriptor(
   descriptor.id = getHash(normalizedPath + (isProduction ? source : ""));
 
   cache.set(filename, descriptor);
+
   return { descriptor, errors };
 }
 
-export function getPrevDescriptor(filename: string): SFCDescriptor | undefined {
-  return prevCache.get(filename);
-}
+export const getPrevDescriptor = (
+  filename: string,
+): SFCDescriptor | undefined => prevCache.get(filename);
 
 export function setPrevDescriptor(
   filename: string,
@@ -71,6 +75,7 @@ export function getDescriptor(
     if (errors.length > 0) {
       throw errors[0];
     }
+
     return descriptor;
   }
 }
@@ -82,6 +87,7 @@ export function getSrcDescriptor(
   if (query.scoped) {
     return cache.get(`${filename}?src=${query.src}`)!;
   }
+
   return cache.get(filename)!;
 }
 
@@ -94,11 +100,8 @@ export function setSrcDescriptor(
     // if multiple Vue files use the same src file, they will be overwritten
     // should use other key
     cache.set(`${filename}?src=${entry.id}`, entry);
+
     return;
   }
   cache.set(filename, entry);
-}
-
-function getHash(text: string): string {
-  return createHash("sha256").update(text).digest("hex").slice(0, 8);
 }

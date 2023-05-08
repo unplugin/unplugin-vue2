@@ -25,7 +25,9 @@ import UnpluginVue2 from "unplugin-vue2/vite";
 
 export default defineConfig({
   plugins: [
-    UnpluginVue2({/* options */}),
+    UnpluginVue2({
+      /* options */
+    }),
   ],
 });
 ```
@@ -41,7 +43,9 @@ import UnpluginVue2 from "unplugin-vue2/rollup";
 
 export default {
   plugins: [
-    UnpluginVue2({/* options */}),
+    UnpluginVue2({
+      /* options */
+    }),
     // other plugins
   ],
 };
@@ -58,7 +62,9 @@ export default {
 module.exports = {
   /* ... */
   plugins: [
-    require("unplugin-vue2/webpack")({/* options */}),
+    require("unplugin-vue2/webpack")({
+      /* options */
+    }),
   ],
 };
 ```
@@ -73,7 +79,9 @@ module.exports = {
 module.exports = {
   configureWebpack: {
     plugins: [
-      require("unplugin-vue2/webpack")({/* options */}),
+      require("unplugin-vue2/webpack")({
+        /* options */
+      }),
     ],
   },
 };
@@ -88,7 +96,12 @@ module.exports = {
 // quasar.conf.js [Vite]
 module.exports = {
   vitePlugins: [
-    ["unplugin-vue2/vite", {/* options */}],
+    [
+      "unplugin-vue2/vite",
+      {
+        /* options */
+      },
+    ],
   ],
 };
 ```
@@ -96,11 +109,14 @@ module.exports = {
 ```ts
 // quasar.conf.js [Webpack]
 const UnpluginVue2Plugin = require("unplugin-vue2/webpack");
+
 module.exports = {
   build: {
     chainWebpack(chain) {
       chain.plugin("unplugin-vue2").use(
-        UnpluginVue2Plugin({/* options */}),
+        UnpluginVue2Plugin({
+          /* options */
+        }),
       );
     },
   },

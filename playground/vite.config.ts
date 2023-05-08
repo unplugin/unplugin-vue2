@@ -21,6 +21,7 @@ const config = defineConfig({
           const transformedAssignment = code
             .trim()
             .replace(/export default/, "const __customBlock =");
+
           return {
             code: `${transformedAssignment}
             export default function (Comp) {

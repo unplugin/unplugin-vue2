@@ -7,10 +7,9 @@ const color = ref("red");
 <template>
   <div>
     <h2>CSS v-bind</h2>
-    <span
-      class="css-v-bind"
-      @click="color = color === 'red' ? 'green' : 'red'"
-    >This should be {{ color }}</span>
+    <span class="css-v-bind" @click="color = color === 'red' ? 'green' : 'red'">
+      This should be {{ color }}
+    </span>
   </div>
 </template>
 

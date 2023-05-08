@@ -26,6 +26,7 @@ export function parseVueRequest(id: string): {
   if (query.scoped != null) {
     query.scoped = true;
   }
+
   return {
     filename,
     query,

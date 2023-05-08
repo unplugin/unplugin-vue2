@@ -2,9 +2,12 @@ import path from "node:path";
 
 // @ts-expect-error
 import hash from "hash-sum";
-import type { SFCDescriptor, SFCTemplateCompileOptions } from "vue/compiler-sfc";
 import slash from "slash";
 import type { UnpluginContext } from "unplugin";
+import type {
+  SFCDescriptor,
+  SFCTemplateCompileOptions,
+} from "vue/compiler-sfc";
 
 import { getResolvedScript } from "./script";
 import { createError } from "./utils/error";
@@ -21,10 +24,10 @@ export async function transformTemplateAsModule(
 ): Promise<string> {
   let returnCode = compile(code, descriptor, options, pluginContext, ssr);
   if (
-    options.devServer
-    && options.devServer.config.server.hmr !== false
-    && !ssr
-    && !options.isProduction
+    options.devServer &&
+    options.devServer.config.server.hmr !== false &&
+    !ssr &&
+    !options.isProduction
   ) {
     returnCode += `\nimport __VUE_HMR_RUNTIME__ from "${HMR_RUNTIME_ID}"`;
     returnCode += `\nimport.meta.hot.accept((updated) => {
@@ -35,20 +38,17 @@ export async function transformTemplateAsModule(
   return `${returnCode}\nexport { render, staticRenderFns }`;
 }
 
-/**
- * transform the template directly in the main SFC module
- */
-export function transformTemplateInMain(
+/** Transform the template directly in the main SFC module */
+export const transformTemplateInMain = (
   code: string,
   descriptor: SFCDescriptor,
   options: ResolvedOptions,
   pluginContext: UnpluginContext,
   ssr: boolean,
-): string {
-  return compile(code, descriptor, options, pluginContext, ssr)
+): string =>
+  compile(code, descriptor, options, pluginContext, ssr)
     .replace(/var (render|staticRenderFns) =/g, "var _sfc_$1 =")
     .replace(/(render._withStripped)/, "_sfc_$1");
-}
 
 export function compile(
   code: string,
@@ -69,7 +69,7 @@ export function compile(
         typeof error === "string"
           ? { id: filename, message: error }
           : createError(filename, error),
-      )
+      ),
     );
   }
 
@@ -78,7 +78,7 @@ export function compile(
       pluginContext.warn({
         id: filename,
         message: typeof tip === "string" ? tip : tip.msg,
-      })
+      }),
     );
   }
 
@@ -114,9 +114,10 @@ function resolveTemplateCompilerOptions(
     // request
     if (filename.startsWith(options.root)) {
       assetUrlOptions = {
-        base: (options.devServer.config.server?.origin ?? "")
-          + options.devServer.config.base
-          + slash(path.relative(options.root, path.dirname(filename))),
+        base:
+          (options.devServer.config.server?.origin ?? "") +
+          options.devServer.config.base +
+          slash(path.relative(options.root, path.dirname(filename))),
       };
     }
   } else if (transformAssetUrls !== false) {

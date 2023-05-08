@@ -1,7 +1,7 @@
 {
   "name": "unplugin-vue2",
   "version": "0.1.1",
-  "packageManager": "pnpm@7.32.3",
+  "packageManager": "pnpm@8.4.0",
   "author": "Ray <i@mk1.io> (@so1ve)",
   "description": "",
   "keywords": [
@@ -77,11 +77,11 @@
   },
   "scripts": {
     "build": "unbuild",
-    "stub": "unbuild --stub",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepublishOnly": "nr build",
     "release": "bumpp --commit --push --tag && pnpm publish",
+    "stub": "unbuild --stub",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
@@ -94,7 +94,7 @@
   "devDependencies": {
     "@antfu/ni": "^0.21.3",
     "@babel/types": "^7.21.4",
-    "@so1ve/eslint-config": "^0.69.1",
+    "@so1ve/eslint-config": "^0.78.6",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.15.11",
     "bumpp": "^9.1.0",

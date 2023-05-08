@@ -6,12 +6,11 @@ import type { ResolvedOptions } from ".";
 const clientCache = new WeakMap<SFCDescriptor>();
 const ssrCache = new WeakMap<SFCDescriptor>();
 
-export function getResolvedScript(
+export const getResolvedScript = (
   descriptor: SFCDescriptor,
   ssr: boolean,
-): SFCScriptBlock | null | undefined {
-  return (ssr ? ssrCache : clientCache).get(descriptor);
-}
+): SFCScriptBlock | null | undefined =>
+  (ssr ? ssrCache : clientCache).get(descriptor);
 
 export function setResolvedScript(
   descriptor: SFCDescriptor,
@@ -44,5 +43,6 @@ export function resolveScript(
   });
 
   cacheToUse.set(descriptor, resolved);
+
   return resolved;
 }

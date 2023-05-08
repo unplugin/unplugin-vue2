@@ -1,10 +1,10 @@
 import path from "node:path";
 
-import fs from "fs-extra";
 import execa from "execa";
-import { expect } from "vitest";
+import fs from "fs-extra";
 import type { ElementHandle } from "puppeteer";
 import puppeteer from "puppeteer";
+import { expect } from "vitest";
 
 let devServer: any;
 let browser: puppeteer.Browser;
@@ -51,7 +51,7 @@ export async function startServer(isBuild: boolean) {
     // '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
   });
 
-  await new Promise(resolve => {
+  await new Promise((resolve) => {
     devServer.stdout.on("data", (data: Buffer) => {
       if (data.toString().match("ready in")) {
         console.log("dev server running.");
@@ -63,11 +63,14 @@ export async function startServer(isBuild: boolean) {
   console.log("launching browser");
   page = await browser.newPage();
   await page.goto("http://localhost:5173");
+
   return page;
 }
 
 export async function killServer() {
-  if (browser) { await browser.close(); }
+  if (browser) {
+    await browser.close();
+  }
   if (devServer) {
     devServer.kill("SIGTERM", {
       forceKillAfterTimeout: 2000,
@@ -75,22 +78,20 @@ export async function killServer() {
   }
 }
 
-export async function getEl(selectorOrEl: string | ElementHandle) {
-  return typeof selectorOrEl === "string"
-    ? await page.$(selectorOrEl)
-    : selectorOrEl;
-}
+export const getEl = async (selectorOrEl: string | ElementHandle) =>
+  typeof selectorOrEl === "string" ? await page.$(selectorOrEl) : selectorOrEl;
 
 export async function getText(selectorOrEl: string | ElementHandle) {
   const el = await getEl(selectorOrEl);
-  return el ? el.evaluate(el => el.textContent) : null;
+
+  return el ? el.evaluate((el) => el.textContent) : null;
 }
 
-export async function getComputedColor(selectorOrEl: string | ElementHandle) {
-  return (await getEl(selectorOrEl))!.evaluate(el => getComputedStyle(el).color);
-}
+export const getComputedColor = async (selectorOrEl: string | ElementHandle) =>
+  (await getEl(selectorOrEl))!.evaluate((el) => getComputedStyle(el).color);
 
-export const timeout = (n: number) => new Promise(resolve => setTimeout(resolve, n));
+export const timeout = (n: number) =>
+  new Promise((resolve) => setTimeout(resolve, n));
 
 export async function updateFile(
   file: string,

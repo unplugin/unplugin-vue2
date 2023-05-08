@@ -1,8 +1,8 @@
-import type { SFCDescriptor } from "vue/compiler-sfc";
 import type { ExistingRawSourceMap } from "rollup";
 import type { RawSourceMap } from "source-map";
-import { formatPostcssSourceMap } from "vite";
 import type { UnpluginContext } from "unplugin";
+import { formatPostcssSourceMap } from "vite";
+import type { SFCDescriptor } from "vue/compiler-sfc";
 
 import type { ResolvedOptions } from ".";
 
@@ -26,14 +26,14 @@ export async function transformStyle(
     scoped: !!block.scoped,
     ...(options.cssDevSourcemap
       ? {
-        postcssOptions: {
-          map: {
-            from: filename,
-            inline: false,
-            annotation: false,
+          postcssOptions: {
+            map: {
+              from: filename,
+              inline: false,
+              annotation: false,
+            },
           },
-        },
-      }
+        }
       : {}),
   });
 
@@ -48,16 +48,17 @@ export async function transformStyle(
       }
       pluginContext.error(error);
     });
+
     return null;
   }
 
   const map = result.map
     ? await formatPostcssSourceMap(
-      // version property of result.map is declared as string
-      // but actually it is a number
-      result.map as Omit<RawSourceMap, "version"> as ExistingRawSourceMap,
-      filename,
-    )
+        // version property of result.map is declared as string
+        // but actually it is a number
+        result.map as Omit<RawSourceMap, "version"> as ExistingRawSourceMap,
+        filename,
+      )
     : ({ mappings: "" } as any);
 
   return {

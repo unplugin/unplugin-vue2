@@ -1,16 +1,20 @@
 import path from "node:path";
 
-import type { SFCBlock, SFCDescriptor } from "vue/compiler-sfc";
+import type { PluginContext } from "rollup";
 import type { RawSourceMap } from "source-map";
 import { transformWithEsbuild } from "vite";
-import type { PluginContext } from "rollup";
+import type { SFCBlock, SFCDescriptor } from "vue/compiler-sfc";
 
-import { createDescriptor, getPrevDescriptor, setSrcDescriptor } from "./utils/descriptorCache";
+import { isOnlyTemplateChanged } from "./handleHotUpdate";
 import { resolveScript } from "./script";
 import { transformTemplateInMain } from "./template";
-import { isOnlyTemplateChanged } from "./handleHotUpdate";
-import { createError } from "./utils/error";
 import { NORMALIZER_ID } from "./utils/componentNormalizer";
+import {
+  createDescriptor,
+  getPrevDescriptor,
+  setSrcDescriptor,
+} from "./utils/descriptorCache";
+import { createError } from "./utils/error";
 import { HMR_RUNTIME_ID } from "./utils/hmrRuntime";
 
 import type { Context, ResolvedOptions } from ".";
@@ -30,13 +34,16 @@ export async function transformMain(
   const { descriptor, errors } = createDescriptor(filename, code, options);
 
   if (errors.length > 0) {
-    errors.forEach(error => pluginContext.error(createError(filename, error)));
+    errors.forEach((error) =>
+      pluginContext.error(createError(filename, error)),
+    );
+
     return null;
   }
 
   // feature information
-  const hasScoped = descriptor.styles.some(s => s.scoped);
-  const hasCssModules = descriptor.styles.some(s => s.module);
+  const hasScoped = descriptor.styles.some((s) => s.scoped);
+  const hasCssModules = descriptor.styles.some((s) => s.module);
   const hasFunctional = descriptor.template?.attrs.functional;
 
   // script
@@ -86,20 +93,18 @@ var __component__ = /*#__PURE__*/__normalizer(
   if (devToolsEnabled || (devServer && !isProduction)) {
     // expose filename during serve for devtools to pickup
     output.push(
-      `__component__.options.__file = ${
-        JSON.stringify(
-          isProduction ? path.basename(filename) : filename,
-        )
-      }`,
+      `__component__.options.__file = ${JSON.stringify(
+        isProduction ? path.basename(filename) : filename,
+      )}`,
     );
   }
 
   // HMR
   if (
-    devServer
-    && devServer.config.server.hmr !== false
-    && !ssr
-    && !isProduction
+    devServer &&
+    devServer.config.server.hmr !== false &&
+    !ssr &&
+    !isProduction
   ) {
     const id = JSON.stringify(descriptor.id);
     output.push(
@@ -110,8 +115,8 @@ var __component__ = /*#__PURE__*/__normalizer(
     );
     // check if the template is the only thing that changed
     if (
-      hasFunctional
-      || (prevDescriptor && isOnlyTemplateChanged(prevDescriptor, descriptor))
+      hasFunctional ||
+      (prevDescriptor && isOnlyTemplateChanged(prevDescriptor, descriptor))
     ) {
       output.push("export const _rerender_only = true");
     }
@@ -140,9 +145,9 @@ var __component__ = /*#__PURE__*/__normalizer(
   // handle TS transpilation
   let resolvedCode = output.join("\n");
   if (
-    (descriptor.script?.lang === "ts"
-      || descriptor.scriptSetup?.lang === "ts")
-    && !descriptor.script?.src // only normal script can have src
+    (descriptor.script?.lang === "ts" ||
+      descriptor.scriptSetup?.lang === "ts") &&
+    !descriptor.script?.src // only normal script can have src
   ) {
     const { code, map } = await transformWithEsbuild(
       resolvedCode,
@@ -183,7 +188,7 @@ async function genTemplateCode(
     return "const _sfc_render = null; const _sfc_staticRenderFns = null";
   }
 
-  const hasScoped = descriptor.styles.some(style => style.scoped);
+  const hasScoped = descriptor.styles.some((style) => style.scoped);
 
   // If the template is not using pre-processor AND is not using external src,
   // compile and inline it directly in the main module. When served in vite this
@@ -215,6 +220,7 @@ async function genTemplateCode(
     const attrsQuery = attrsToQuery(template.attrs, "js", true);
     const query = `?vue&type=template${srcQuery}${scopedQuery}${attrsQuery}`;
     const request = JSON.stringify(src + query);
+
     return `import { render as _sfc_render, staticRenderFns as _sfc_staticRenderFns } from ${request}`;
   }
 }
@@ -236,15 +242,16 @@ async function genScriptCode(
     // If the script is js/ts and has no external src, it can be directly placed
     // in the main module.
     if (
-      (!script.lang || (script.lang === "ts" && options.devServer))
-      && !script.src
+      (!script.lang || (script.lang === "ts" && options.devServer)) &&
+      !script.src
     ) {
       const userPlugins = options.script?.babelParserPlugins ?? [];
-      const defaultPlugins = script.lang === "ts"
-        ? userPlugins.includes("decorators")
-          ? (["typescript"] as const)
-          : (["typescript", "decorators-legacy"] as const)
-        : [];
+      const defaultPlugins =
+        script.lang === "ts"
+          ? userPlugins.includes("decorators")
+            ? (["typescript"] as const)
+            : (["typescript", "decorators-legacy"] as const)
+          : [];
       scriptCode = options.compiler.rewriteDefault(
         script.content,
         "_sfc_main",
@@ -261,19 +268,18 @@ async function genScriptCode(
       const srcQuery = script.src ? "&src=true" : "";
       const query = `?vue&type=script${srcQuery}${attrsQuery}`;
       const request = JSON.stringify(src + query);
-      scriptCode = `import _sfc_main from ${request}\n` + `export * from ${request}`; // support named exports
+      scriptCode =
+        `import _sfc_main from ${request}\n` + `export * from ${request}`; // support named exports
     }
   }
+
   return {
     code: scriptCode,
     map,
   };
 }
 
-async function genStyleCode(
-  descriptor: SFCDescriptor,
-  pluginContext: Context,
-) {
+async function genStyleCode(descriptor: SFCDescriptor, pluginContext: Context) {
   let stylesCode = "";
   let cssModulesMap: Record<string, string> | undefined;
   if (descriptor.styles.length > 0) {
@@ -307,7 +313,7 @@ async function genStyleCode(
           style.module,
         );
         stylesCode += importCode;
-        Object.assign(cssModulesMap ||= {}, nameMap);
+        Object.assign((cssModulesMap ||= {}), nameMap);
       } else {
         stylesCode += `\nimport ${JSON.stringify(styleRequest)}`;
       }
@@ -315,12 +321,10 @@ async function genStyleCode(
     }
   }
   if (cssModulesMap) {
-    const mappingCode = `${
-      Object.entries(cssModulesMap).reduce(
-        (code, [key, value]) => `${code}"${key}":${value},\n`,
-        "{\n",
-      )
-    }}`;
+    const mappingCode = `${Object.entries(cssModulesMap).reduce(
+      (code, [key, value]) => `${code}"${key}":${value},\n`,
+      "{\n",
+    )}}`;
     stylesCode += `\nconst __cssModules = ${mappingCode}`;
     stylesCode += `\nfunction _sfc_injectStyles(ctx) {
       for (var key in __cssModules) {
@@ -328,6 +332,7 @@ async function genStyleCode(
       }
     }`;
   }
+
   return stylesCode;
 }
 
@@ -340,6 +345,7 @@ function genCSSModulesCode(
   const exposedName = typeof moduleName === "string" ? moduleName : "$style";
   // inject `.module` before extension so vite handles it as css module
   const moduleRequest = request.replace(/\.(\w+)$/, ".module.$1");
+
   return [
     `\nimport ${styleVar} from ${JSON.stringify(moduleRequest)}`,
     { [exposedName]: styleVar },
@@ -364,13 +370,14 @@ async function genCustomBlockCode(
     code += `import block${index} from ${request}\n`;
     code += `if (typeof block${index} === 'function') block${index}(_sfc_main)\n`;
   }
+
   return code;
 }
 
 /**
- * For blocks with src imports, it is important to link the imported file
- * with its owner SFC descriptor so that we can get the information about
- * the owner SFC when compiling that file in the transform phase.
+ * For blocks with src imports, it is important to link the imported file with
+ * its owner SFC descriptor so that we can get the information about the owner
+ * SFC when compiling that file in the transform phase.
  */
 async function linkSrcToDescriptor(
   src: string,
@@ -381,21 +388,24 @@ async function linkSrcToDescriptor(
   // support rollup only
 
   if (
-    pluginContext.framework === "rollup"
-    || pluginContext.framework === "vite"
+    pluginContext.framework === "rollup" ||
+    pluginContext.framework === "vite"
   ) {
-    const srcFile = (
-      await (pluginContext as unknown as PluginContext).resolve(
-        src,
-        descriptor.filename,
-      )
-    )?.id ?? src;
+    const srcFile =
+      (
+        await (pluginContext as unknown as PluginContext).resolve(
+          src,
+          descriptor.filename,
+        )
+      )?.id ?? src;
     // #1812 if the src points to a dep file, the resolved id may contain a
     // version query.
     setSrcDescriptor(srcFile.replace(/\?.*$/, ""), descriptor, scoped);
   } else {
     // TODO: unplugin implements context.resolve()
-    pluginContext.error(new Error("src attribute is supported on Rollup only."));
+    pluginContext.error(
+      new Error("src attribute is supported on Rollup only."),
+    );
   }
 }
 
@@ -412,15 +422,19 @@ function attrsToQuery(
   for (const name in attrs) {
     const value = attrs[name];
     if (!ignoreList.includes(name)) {
-      query += `&${encodeURIComponent(name)}${value ? `=${encodeURIComponent(value)}` : ""}`;
+      query += `&${encodeURIComponent(name)}${
+        value ? `=${encodeURIComponent(value)}` : ""
+      }`;
     }
   }
   if (langFallback || attrs.lang) {
-    query += "lang" in attrs
-      ? forceLangFallback
-        ? `&lang.${langFallback}`
-        : `&lang.${attrs.lang}`
-      : `&lang.${langFallback}`;
+    query +=
+      "lang" in attrs
+        ? forceLangFallback
+          ? `&lang.${langFallback}`
+          : `&lang.${attrs.lang}`
+        : `&lang.${langFallback}`;
   }
+
   return query;
 }
