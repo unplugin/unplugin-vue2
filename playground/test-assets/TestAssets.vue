@@ -14,7 +14,8 @@ export default {
   <div>
     <h2>Static Asset Handling</h2>
     <p class="asset-import">
-      Path for assets import from js: <code>{{ filepath }}</code>
+      Path for assets import from js:
+      <code>{{ filepath }}</code>
     </p>
     <p>
       Relative asset reference in template:
