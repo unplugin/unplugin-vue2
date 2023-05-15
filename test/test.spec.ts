@@ -13,7 +13,7 @@ import {
   updateFile,
 } from "./util";
 
-const TIMEOUT = 1000000;
+const TIMEOUT = 1_000_000;
 
 beforeAll(async () => {
   await preTest();
