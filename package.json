@@ -28,6 +28,22 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     },
+    "./*": "./*",
+    "./esbuild": {
+      "types": "./dist/esbuild.d.ts",
+      "require": "./dist/esbuild.cjs",
+      "import": "./dist/esbuild.mjs"
+    },
+    "./rollup": {
+      "types": "./dist/rollup.d.ts",
+      "require": "./dist/rollup.cjs",
+      "import": "./dist/rollup.mjs"
+    },
+    "./rspack": {
+      "types": "./dist/rspack.d.ts",
+      "require": "./dist/rspack.cjs",
+      "import": "./dist/rspack.mjs"
+    },
     "./vite": {
       "types": "./dist/vite.d.ts",
       "require": "./dist/vite.cjs",
@@ -37,23 +53,7 @@
       "types": "./dist/webpack.d.ts",
       "require": "./dist/webpack.cjs",
       "import": "./dist/webpack.mjs"
-    },
-    "./rollup": {
-      "types": "./dist/rollup.d.ts",
-      "require": "./dist/rollup.cjs",
-      "import": "./dist/rollup.mjs"
-    },
-    "./esbuild": {
-      "types": "./dist/esbuild.d.ts",
-      "require": "./dist/esbuild.cjs",
-      "import": "./dist/esbuild.mjs"
-    },
-    "./rspack": {
-      "types": "./dist/rspack.d.ts",
-      "require": "./dist/rspack.cjs",
-      "import": "./dist/rspack.mjs"
-    },
-    "./*": "./*"
+    }
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -94,7 +94,7 @@
   "devDependencies": {
     "@antfu/ni": "^0.21.3",
     "@babel/types": "^7.21.4",
-    "@so1ve/eslint-config": "^0.85.0",
+    "@so1ve/eslint-config": "^0.86.0",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.15.11",
     "bumpp": "^9.1.0",
