@@ -28,6 +28,22 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     },
+    "./*": "./*",
+    "./esbuild": {
+      "types": "./dist/esbuild.d.ts",
+      "require": "./dist/esbuild.cjs",
+      "import": "./dist/esbuild.mjs"
+    },
+    "./rollup": {
+      "types": "./dist/rollup.d.ts",
+      "require": "./dist/rollup.cjs",
+      "import": "./dist/rollup.mjs"
+    },
+    "./rspack": {
+      "types": "./dist/rspack.d.ts",
+      "require": "./dist/rspack.cjs",
+      "import": "./dist/rspack.mjs"
+    },
     "./vite": {
       "types": "./dist/vite.d.ts",
       "require": "./dist/vite.cjs",
@@ -37,23 +53,7 @@
       "types": "./dist/webpack.d.ts",
       "require": "./dist/webpack.cjs",
       "import": "./dist/webpack.mjs"
-    },
-    "./rollup": {
-      "types": "./dist/rollup.d.ts",
-      "require": "./dist/rollup.cjs",
-      "import": "./dist/rollup.mjs"
-    },
-    "./esbuild": {
-      "types": "./dist/esbuild.d.ts",
-      "require": "./dist/esbuild.cjs",
-      "import": "./dist/esbuild.mjs"
-    },
-    "./rspack": {
-      "types": "./dist/rspack.d.ts",
-      "require": "./dist/rspack.cjs",
-      "import": "./dist/rspack.mjs"
-    },
-    "./*": "./*"
+    }
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
