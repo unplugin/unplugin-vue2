@@ -42,18 +42,26 @@ export function declareTests(isBuild: boolean) {
     await killServer();
   }, TIMEOUT);
 
-  test("SFC <script setup>", async () => {
+  test("sFC <script setup>", async () => {
     const el = (await page.$(".script-setup"))!;
+
     // custom directive
-    expect(await getComputedColor(el)).toBe("rgb(255, 0, 0)");
+    await expect(getComputedColor(el)).resolves.toBe("rgb(255, 0, 0)");
     // defineProps
-    expect(await getText((await page.$(".prop"))!)).toMatch("prop from parent");
+    await expect(getText((await page.$(".prop"))!)).resolves.toMatch(
+      "prop from parent",
+    );
+
     // state
     const button = (await page.$(".script-setup button"))!;
-    expect(await getText(button)).toMatch("0");
+
+    await expect(getText(button)).resolves.toMatch("0");
+
     // click
     await page.click(".script-setup button");
-    expect(await getText(button)).toMatch("1");
+
+    await expect(getText(button)).resolves.toMatch("1");
+
     if (!isBuild) {
       // hmr
       await updateFile("ScriptSetup.vue", (content) =>
@@ -67,7 +75,8 @@ export function declareTests(isBuild: boolean) {
     test("hmr (vue re-render)", async () => {
       const button = (await page.$(".hmr-increment"))!;
       await button.click();
-      expect(await getText(button)).toMatch(">>> 1 <<<");
+
+      await expect(getText(button)).resolves.toMatch(">>> 1 <<<");
 
       await updateFile("hmr/TestHmr.vue", (content) =>
         content.replace("{{ count }}", "count is {{ count }}"),
@@ -85,9 +94,11 @@ export function declareTests(isBuild: boolean) {
     });
   }
 
-  test("SFC <style scoped>", async () => {
+  test("sFC <style scoped>", async () => {
     const el = (await page.$(".style-scoped"))!;
-    expect(await getComputedColor(el)).toBe("rgb(138, 43, 226)");
+
+    await expect(getComputedColor(el)).resolves.toBe("rgb(138, 43, 226)");
+
     if (!isBuild) {
       await updateFile("css/TestScopedCss.vue", (content) =>
         content.replace("rgb(138, 43, 226)", "rgb(0, 0, 0)"),
@@ -96,9 +107,11 @@ export function declareTests(isBuild: boolean) {
     }
   });
 
-  test("SFC <style module>", async () => {
+  test("sFC <style module>", async () => {
     const el = (await page.$(".css-modules-sfc"))!;
-    expect(await getComputedColor(el)).toBe("rgb(0, 0, 255)");
+
+    await expect(getComputedColor(el)).resolves.toBe("rgb(0, 0, 255)");
+
     if (!isBuild) {
       await updateFile("css/TestCssModules.vue", (content) =>
         content.replace("color: blue;", "color: rgb(0, 0, 0);"),
@@ -111,16 +124,23 @@ export function declareTests(isBuild: boolean) {
     }
   });
 
-  test("SFC <custom>", async () => {
-    expect(await getText(".custom-block")).toMatch("Custom Block");
-    expect(await getText(".custom-block-lang")).toMatch("Custom Block");
-    expect(await getText(".custom-block-src")).toMatch("Custom Block");
+  test("sFC <custom>", async () => {
+    await expect(getText(".custom-block")).resolves.toMatch("Custom Block");
+    await expect(getText(".custom-block-lang")).resolves.toMatch(
+      "Custom Block",
+    );
+    await expect(getText(".custom-block-src")).resolves.toMatch("Custom Block");
   });
 
-  test("SFC src imports", async () => {
-    expect(await getText(".src-imports-script")).toMatch('src="./script.ts"');
+  test("sFC src imports", async () => {
+    await expect(getText(".src-imports-script")).resolves.toMatch(
+      'src="./script.ts"',
+    );
+
     const el = (await getEl(".src-imports-style"))!;
-    expect(await getComputedColor(el)).toBe("rgb(119, 136, 153)");
+
+    await expect(getComputedColor(el)).resolves.toBe("rgb(119, 136, 153)");
+
     if (!isBuild) {
       // test style first, should not reload the component
       await updateFile("src-import/style.css", (c) =>
@@ -145,19 +165,28 @@ export function declareTests(isBuild: boolean) {
     }
   });
 
-  test("SFC Recursive Component", async () => {
-    expect(await getText(".test-recursive-item")).toMatch(/name-1-1-1/);
+  test("sFC Recursive Component", async () => {
+    await expect(getText(".test-recursive-item")).resolves.toMatch(
+      /name-1-1-1/,
+    );
   });
 
-  test("SFC Async Component", async () => {
-    expect(await getText(".async-component-a")).toMatch("This is componentA");
-    expect(await getText(".async-component-b")).toMatch("This is componentB");
+  test("sFC Async Component", async () => {
+    await expect(getText(".async-component-a")).resolves.toMatch(
+      "This is componentA",
+    );
+    await expect(getText(".async-component-b")).resolves.toMatch(
+      "This is componentB",
+    );
   });
 
   test("css v-bind", async () => {
     const el = (await getEl(".css-v-bind"))!;
-    expect(await getComputedColor(el)).toBe("rgb(255, 0, 0)");
+
+    await expect(getComputedColor(el)).resolves.toBe("rgb(255, 0, 0)");
+
     await el.click();
-    expect(await getComputedColor(el)).toBe("rgb(0, 128, 0)");
+
+    await expect(getComputedColor(el)).resolves.toBe("rgb(0, 128, 0)");
   });
 }

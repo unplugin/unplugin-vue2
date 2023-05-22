@@ -68,7 +68,7 @@ export async function transformStyle(
 }
 
 function getLine(source: string, start: number) {
-  const lines = source.split(/\r?\n/g);
+  const lines = source.split(/\r?\n/);
   let cur = 0;
   for (const [i, line] of lines.entries()) {
     cur += line.length;
