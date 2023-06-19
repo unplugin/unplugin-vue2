@@ -1,7 +1,7 @@
 import fs from "node:fs";
 
-import { createUnplugin } from "unplugin";
 import type { UnpluginContext, UnpluginContextMeta } from "unplugin";
+import { createUnplugin } from "unplugin";
 import type { ViteDevServer } from "vite";
 import { createFilter } from "vite";
 import type * as _compiler from "vue/compiler-sfc";
@@ -23,8 +23,8 @@ import { getDescriptor, getSrcDescriptor } from "./utils/descriptorCache";
 import { HMR_RUNTIME_ID, hmrRuntimeCode } from "./utils/hmrRuntime";
 import { parseVueRequest } from "./utils/query";
 
-export { parseVueRequest } from "./utils/query";
 export type { VueQuery } from "./utils/query";
+export { parseVueRequest } from "./utils/query";
 export type Context = UnpluginContext & UnpluginContextMeta;
 export interface Options {
   include?: string | RegExp | (string | RegExp)[];

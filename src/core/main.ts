@@ -5,6 +5,7 @@ import type { RawSourceMap } from "source-map";
 import { transformWithEsbuild } from "vite";
 import type { SFCBlock, SFCDescriptor } from "vue/compiler-sfc";
 
+import type { Context, ResolvedOptions } from ".";
 import { isOnlyTemplateChanged } from "./handleHotUpdate";
 import { resolveScript } from "./script";
 import { transformTemplateInMain } from "./template";
@@ -16,8 +17,6 @@ import {
 } from "./utils/descriptorCache";
 import { createError } from "./utils/error";
 import { HMR_RUNTIME_ID } from "./utils/hmrRuntime";
-
-import type { Context, ResolvedOptions } from ".";
 
 export async function transformMain(
   code: string,

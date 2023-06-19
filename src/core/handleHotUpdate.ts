@@ -1,14 +1,13 @@
 import type { HmrContext, ModuleNode } from "vite";
 import type { SFCBlock, SFCDescriptor } from "vue/compiler-sfc";
 
+import type { ResolvedOptions } from ".";
 import { getResolvedScript, setResolvedScript } from "./script";
 import {
   createDescriptor,
   getDescriptor,
   setPrevDescriptor,
 } from "./utils/descriptorCache";
-
-import type { ResolvedOptions } from ".";
 
 const directRequestRE = /(\?|&)direct\b/;
 

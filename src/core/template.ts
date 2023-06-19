@@ -9,11 +9,10 @@ import type {
   SFCTemplateCompileOptions,
 } from "vue/compiler-sfc";
 
+import type { ResolvedOptions } from ".";
 import { getResolvedScript } from "./script";
 import { createError } from "./utils/error";
 import { HMR_RUNTIME_ID } from "./utils/hmrRuntime";
-
-import type { ResolvedOptions } from ".";
 
 export async function transformTemplateAsModule(
   code: string,
