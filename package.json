@@ -5,12 +5,12 @@
   "author": "Ray <i@mk1.io> (@so1ve)",
   "description": "",
   "keywords": [
+    "nuxt",
+    "rollup",
+    "transform",
     "unplugin",
     "vite",
-    "webpack",
-    "rollup",
-    "nuxt",
-    "transform"
+    "webpack"
   ],
   "homepage": "https://github.com/so1ve/unplugin-vue2#readme",
   "repository": {
@@ -91,7 +91,7 @@
   "devDependencies": {
     "@antfu/ni": "^0.21.3",
     "@babel/types": "^7.21.4",
-    "@so1ve/eslint-config": "^0.106.0",
+    "@so1ve/eslint-config": "^0.108.0",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.15.11",
     "bumpp": "^9.1.0",
