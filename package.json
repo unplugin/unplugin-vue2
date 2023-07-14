@@ -3,14 +3,15 @@
   "version": "0.1.1",
   "packageManager": "pnpm@7.33.3",
   "author": "Ray <i@mk1.io> (@so1ve)",
-  "description": "",
+  "description": "Unplugin for Vue 2.7+.",
   "keywords": [
     "nuxt",
     "rollup",
     "transform",
     "unplugin",
     "vite",
-    "webpack"
+    "webpack",
+    "rspack"
   ],
   "homepage": "https://github.com/so1ve/unplugin-vue2#readme",
   "repository": {
@@ -90,8 +91,7 @@
   },
   "devDependencies": {
     "@antfu/ni": "^0.21.3",
-    "@babel/types": "^7.21.4",
-    "@so1ve/eslint-config": "^0.108.0",
+  "@so1ve/eslint-config": "^0.108.0",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.15.11",
     "bumpp": "^9.1.0",
@@ -104,7 +104,7 @@
     "hash-sum": "^2.0.0",
     "minimist": "^1.2.6",
     "picocolors": "^1.0.0",
-    "pnpm": "^7.32.1",
+  
     "puppeteer": "^14.4.0",
     "rollup": "^3.20.4",
     "semver": "^7.3.7",
