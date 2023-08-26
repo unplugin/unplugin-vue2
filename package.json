@@ -98,7 +98,7 @@
     "conventional-changelog-cli": "^2.2.2",
     "debug": "^4.3.4",
     "enquirer": "^2.3.6",
-    "eslint": "^8.38.0",
+    "eslint": "^8.45.0",
     "execa": "^4.1.0",
     "fs-extra": "^10.1.0",
     "hash-sum": "^2.0.0",
