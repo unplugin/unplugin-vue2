@@ -42,7 +42,7 @@ export function declareTests(isBuild: boolean) {
     await killServer();
   }, TIMEOUT);
 
-  test("sFC <script setup>", async () => {
+  test("SFC <script setup>", async () => {
     const el = (await page.$(".script-setup"))!;
 
     // custom directive
@@ -94,7 +94,7 @@ export function declareTests(isBuild: boolean) {
     });
   }
 
-  test("sFC <style scoped>", async () => {
+  test("SFC <style scoped>", async () => {
     const el = (await page.$(".style-scoped"))!;
 
     await expect(getComputedColor(el)).resolves.toBe("rgb(138, 43, 226)");
@@ -107,7 +107,7 @@ export function declareTests(isBuild: boolean) {
     }
   });
 
-  test("sFC <style module>", async () => {
+  test("SFC <style module>", async () => {
     const el = (await page.$(".css-modules-sfc"))!;
 
     await expect(getComputedColor(el)).resolves.toBe("rgb(0, 0, 255)");
@@ -124,7 +124,7 @@ export function declareTests(isBuild: boolean) {
     }
   });
 
-  test("sFC <custom>", async () => {
+  test("SFC <custom>", async () => {
     await expect(getText(".custom-block")).resolves.toMatch("Custom Block");
     await expect(getText(".custom-block-lang")).resolves.toMatch(
       "Custom Block",
@@ -132,7 +132,7 @@ export function declareTests(isBuild: boolean) {
     await expect(getText(".custom-block-src")).resolves.toMatch("Custom Block");
   });
 
-  test("sFC src imports", async () => {
+  test("SFC src imports", async () => {
     await expect(getText(".src-imports-script")).resolves.toMatch(
       'src="./script.ts"',
     );
@@ -165,13 +165,13 @@ export function declareTests(isBuild: boolean) {
     }
   });
 
-  test("sFC Recursive Component", async () => {
+  test("SFC Recursive Component", async () => {
     await expect(getText(".test-recursive-item")).resolves.toMatch(
       /name-1-1-1/,
     );
   });
 
-  test("sFC Async Component", async () => {
+  test("SFC Async Component", async () => {
     await expect(getText(".async-component-a")).resolves.toMatch(
       "This is componentA",
     );
