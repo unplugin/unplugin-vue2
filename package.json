@@ -13,13 +13,13 @@
     "vite",
     "webpack"
   ],
-  "homepage": "https://github.com/so1ve/unplugin-vue2#readme",
+  "homepage": "https://github.com/unplugin/unplugin-vue2#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/so1ve/unplugin-vue2.git"
+    "url": "git+https://github.com/unplugin/unplugin-vue2.git"
   },
   "bugs": {
-    "url": "https://github.com/so1ve/unplugin-vue2/issues"
+    "url": "https://github.com/unplugin/unplugin-vue2/issues"
   },
   "license": "MIT",
   "sideEffects": false,
