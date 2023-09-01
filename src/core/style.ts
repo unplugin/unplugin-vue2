@@ -1,5 +1,5 @@
 import type { ExistingRawSourceMap } from "rollup";
-import type { RawSourceMap } from "source-map";
+import type { RawSourceMap } from "source-map-js";
 import type { UnpluginContext } from "unplugin";
 import { formatPostcssSourceMap } from "vite";
 import type { SFCDescriptor } from "vue/compiler-sfc";
