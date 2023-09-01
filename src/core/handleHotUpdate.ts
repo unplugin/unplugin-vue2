@@ -9,7 +9,7 @@ import {
 } from "./utils/descriptorCache";
 import type { ResolvedOptions } from ".";
 
-const directRequestRE = /(\?|&)direct\b/;
+const directRequestRE = /(?:\?|&)direct\b/;
 
 /** Vite-specific HMR handling */
 export async function handleHotUpdate(
@@ -38,7 +38,7 @@ export async function handleHotUpdate(
   if (scriptChanged) {
     let scriptModule: ModuleNode | undefined;
     if (
-      (descriptor.scriptSetup?.lang && !descriptor.scriptSetup.src) ||
+      (descriptor.scriptSetup?.lang && !descriptor.scriptSetup.src) ??
       (descriptor.script?.lang && !descriptor.script.src)
     ) {
       const scriptModuleRE = new RegExp(
@@ -143,7 +143,7 @@ export async function handleHotUpdate(
       affectedModules.add(mainModule);
     } else if (mainModule && !affectedModules.has(mainModule)) {
       const styleImporters = [...mainModule.importers].filter((m) =>
-        /\.css($|\?)/.test(m.url),
+        /\.css(?:$|\?)/.test(m.url),
       );
       styleImporters.forEach((m) => affectedModules.add(m));
     }
