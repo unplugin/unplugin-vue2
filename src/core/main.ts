@@ -1,7 +1,7 @@
 import path from "node:path";
 
 import type { PluginContext } from "rollup";
-import type { RawSourceMap } from "source-map";
+import type { RawSourceMap } from "source-map-js";
 import { transformWithEsbuild } from "vite";
 import type { SFCBlock, SFCDescriptor } from "vue/compiler-sfc";
 
