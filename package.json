@@ -109,7 +109,7 @@
 		"rollup": "^3.20.4",
 		"semver": "^7.3.7",
 		"slash": "^3.0.0",
-		"source-map": "^0.6.1",
+		"source-map-js": "^1.0.2",
 		"typescript": "^5.0.4",
 		"unbuild": "^1.2.1",
 		"vite": "^4.2.1",
