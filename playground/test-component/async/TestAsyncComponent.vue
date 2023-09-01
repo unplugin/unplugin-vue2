@@ -1,21 +1,21 @@
 <script>
 export default {
-  components: {
-    ComponentA: () => import("./componentA.vue"),
-  },
-  beforeCreate() {
-    this.$options.components.ComponentB = () => import("./componentB.vue");
-  },
+	components: {
+		ComponentA: () => import("./componentA.vue"),
+	},
+	beforeCreate() {
+		this.$options.components.ComponentB = () => import("./componentB.vue");
+	},
 };
 </script>
 
 <template>
-  <div>
-    <h3>Async Component</h3>
-    <ComponentA />
-    <ComponentB />
+	<div>
+		<h3>Async Component</h3>
+		<ComponentA />
+		<ComponentB />
 
-    <pre>
+		<pre>
 export default {
   components: {
     componentA: () => import('./componentA.vue')
@@ -25,5 +25,5 @@ export default {
   }
 }
     </pre>
-  </div>
+	</div>
 </template>

@@ -24,11 +24,11 @@ $ pnpm add unplugin-vue2 -D
 import UnpluginVue2 from "unplugin-vue2/vite";
 
 export default defineConfig({
-  plugins: [
-    UnpluginVue2({
-      /* options */
-    }),
-  ],
+	plugins: [
+		UnpluginVue2({
+			/* options */
+		}),
+	],
 });
 ```
 
@@ -42,17 +42,16 @@ export default defineConfig({
 import UnpluginVue2 from "unplugin-vue2/rollup";
 
 export default {
-  plugins: [
-    UnpluginVue2({
-      /* options */
-    }),
-    // other plugins
-  ],
+	plugins: [
+		UnpluginVue2({
+			/* options */
+		}),
+		// other plugins
+	],
 };
 ```
 
 <br></details>
-
 
 <details>
 <summary>Webpack</summary><br>
@@ -60,12 +59,12 @@ export default {
 ```ts
 // webpack.config.js
 module.exports = {
-  /* ... */
-  plugins: [
-    require("unplugin-vue2/webpack")({
-      /* options */
-    }),
-  ],
+	/* ... */
+	plugins: [
+		require("unplugin-vue2/webpack")({
+			/* options */
+		}),
+	],
 };
 ```
 
@@ -77,13 +76,13 @@ module.exports = {
 ```ts
 // vue.config.js
 module.exports = {
-  configureWebpack: {
-    plugins: [
-      require("unplugin-vue2/webpack")({
-        /* options */
-      }),
-    ],
-  },
+	configureWebpack: {
+		plugins: [
+			require("unplugin-vue2/webpack")({
+				/* options */
+			}),
+		],
+	},
 };
 ```
 
@@ -95,14 +94,14 @@ module.exports = {
 ```ts
 // quasar.conf.js [Vite]
 module.exports = {
-  vitePlugins: [
-    [
-      "unplugin-vue2/vite",
-      {
-        /* options */
-      },
-    ],
-  ],
+	vitePlugins: [
+		[
+			"unplugin-vue2/vite",
+			{
+				/* options */
+			},
+		],
+	],
 };
 ```
 
@@ -111,15 +110,15 @@ module.exports = {
 const UnpluginVue2Plugin = require("unplugin-vue2/webpack");
 
 module.exports = {
-  build: {
-    chainWebpack(chain) {
-      chain.plugin("unplugin-vue2").use(
-        UnpluginVue2Plugin({
-          /* options */
-        }),
-      );
-    },
-  },
+	build: {
+		chainWebpack(chain) {
+			chain.plugin("unplugin-vue2").use(
+				UnpluginVue2Plugin({
+					/* options */
+				}),
+			);
+		},
+	},
 };
 ```
 
@@ -133,12 +132,12 @@ module.exports = {
 import { build } from "esbuild";
 
 build({
-  /* ... */
-  plugins: [
-    require("unplugin-vue2/esbuild")({
-      /* options */
-    }),
-  ],
+	/* ... */
+	plugins: [
+		require("unplugin-vue2/esbuild")({
+			/* options */
+		}),
+	],
 });
 ```
 

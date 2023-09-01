@@ -1,10 +1,10 @@
 {
-  "extends": "../tsconfig.json",
-  "include": ["."],
-  "compilerOptions": {
-    "jsx": "preserve"
-  },
-  "vueCompilerOptions": {
-    "target": 2.7
-  }
+	"extends": "../tsconfig.json",
+	"include": ["."],
+	"compilerOptions": {
+		"jsx": "preserve"
+	},
+	"vueCompilerOptions": {
+		"target": 2.7
+	}
 }

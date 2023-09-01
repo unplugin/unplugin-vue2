@@ -9,99 +9,99 @@ import type { ResolvedOptions, VueQuery } from "..";
 
 // compiler-sfc should be exported so it can be re-used
 export interface SFCParseResult {
-  descriptor: SFCDescriptor;
-  errors: Error[];
+	descriptor: SFCDescriptor;
+	errors: Error[];
 }
 
 const cache = new Map<string, SFCDescriptor>();
 const prevCache = new Map<string, SFCDescriptor | undefined>();
 
 const getHash = (text: string): string =>
-  createHash("sha256").update(text).digest("hex").slice(0, 8);
+	createHash("sha256").update(text).digest("hex").slice(0, 8);
 
 export function createDescriptor(
-  filename: string,
-  source: string,
-  { root, isProduction, sourceMap, compiler }: ResolvedOptions,
+	filename: string,
+	source: string,
+	{ root, isProduction, sourceMap, compiler }: ResolvedOptions,
 ): SFCParseResult {
-  let descriptor: SFCDescriptor;
-  let errors: any[] = [];
-  try {
-    descriptor = compiler.parse({
-      source,
-      filename,
-      sourceMap,
-    });
-  } catch (e) {
-    errors = [e];
-    descriptor = compiler.parse({ source: "", filename });
-  }
+	let descriptor: SFCDescriptor;
+	let errors: any[] = [];
+	try {
+		descriptor = compiler.parse({
+			source,
+			filename,
+			sourceMap,
+		});
+	} catch (e) {
+		errors = [e];
+		descriptor = compiler.parse({ source: "", filename });
+	}
 
-  // ensure the path is normalized in a way that is consistent inside
-  // project (relative to root) and on different systems.
-  const normalizedPath = slash(path.normalize(path.relative(root, filename)));
-  descriptor.id = getHash(normalizedPath + (isProduction ? source : ""));
+	// ensure the path is normalized in a way that is consistent inside
+	// project (relative to root) and on different systems.
+	const normalizedPath = slash(path.normalize(path.relative(root, filename)));
+	descriptor.id = getHash(normalizedPath + (isProduction ? source : ""));
 
-  cache.set(filename, descriptor);
+	cache.set(filename, descriptor);
 
-  return { descriptor, errors };
+	return { descriptor, errors };
 }
 
 export const getPrevDescriptor = (
-  filename: string,
+	filename: string,
 ): SFCDescriptor | undefined => prevCache.get(filename);
 
 export function setPrevDescriptor(
-  filename: string,
-  entry: SFCDescriptor,
+	filename: string,
+	entry: SFCDescriptor,
 ): void {
-  prevCache.set(filename, entry);
+	prevCache.set(filename, entry);
 }
 
 export function getDescriptor(
-  filename: string,
-  options: ResolvedOptions,
-  createIfNotFound = true,
+	filename: string,
+	options: ResolvedOptions,
+	createIfNotFound = true,
 ): SFCDescriptor | undefined {
-  if (cache.has(filename)) {
-    return cache.get(filename)!;
-  }
-  if (createIfNotFound) {
-    const { descriptor, errors } = createDescriptor(
-      filename,
-      fs.readFileSync(filename, "utf-8"),
-      options,
-    );
-    if (errors.length > 0) {
-      throw errors[0];
-    }
+	if (cache.has(filename)) {
+		return cache.get(filename)!;
+	}
+	if (createIfNotFound) {
+		const { descriptor, errors } = createDescriptor(
+			filename,
+			fs.readFileSync(filename, "utf-8"),
+			options,
+		);
+		if (errors.length > 0) {
+			throw errors[0];
+		}
 
-    return descriptor;
-  }
+		return descriptor;
+	}
 }
 
 export function getSrcDescriptor(
-  filename: string,
-  query: VueQuery,
+	filename: string,
+	query: VueQuery,
 ): SFCDescriptor {
-  if (query.scoped) {
-    return cache.get(`${filename}?src=${query.src}`)!;
-  }
+	if (query.scoped) {
+		return cache.get(`${filename}?src=${query.src}`)!;
+	}
 
-  return cache.get(filename)!;
+	return cache.get(filename)!;
 }
 
 export function setSrcDescriptor(
-  filename: string,
-  entry: SFCDescriptor,
-  scoped?: boolean,
+	filename: string,
+	entry: SFCDescriptor,
+	scoped?: boolean,
 ): void {
-  if (scoped) {
-    // if multiple Vue files use the same src file, they will be overwritten
-    // should use other key
-    cache.set(`${filename}?src=${entry.id}`, entry);
+	if (scoped) {
+		// if multiple Vue files use the same src file, they will be overwritten
+		// should use other key
+		cache.set(`${filename}?src=${entry.id}`, entry);
 
-    return;
-  }
-  cache.set(filename, entry);
+		return;
+	}
+	cache.set(filename, entry);
 }

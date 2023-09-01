@@ -4,31 +4,31 @@ import { createRequire } from "node:module";
 import type * as _compiler from "vue/compiler-sfc";
 
 declare module "vue/compiler-sfc" {
-  interface SFCDescriptor {
-    id: string;
-  }
+	interface SFCDescriptor {
+		id: string;
+	}
 }
 
 export function resolveCompiler(root: string): typeof _compiler {
-  // resolve from project root first, then fallback to peer dep (if any)
-  const compiler =
-    tryRequire("vue/compiler-sfc", root) || tryRequire("vue/compiler-sfc");
+	// resolve from project root first, then fallback to peer dep (if any)
+	const compiler =
+		tryRequire("vue/compiler-sfc", root) || tryRequire("vue/compiler-sfc");
 
-  if (!compiler) {
-    throw new Error(
-      `Failed to resolve vue/compiler-sfc.\n${+"@vitejs/plugin-vue2 requires vue (>=2.7.0) "}to be present in the dependency tree.`,
-    );
-  }
+	if (!compiler) {
+		throw new Error(
+			`Failed to resolve vue/compiler-sfc.\n${+"@vitejs/plugin-vue2 requires vue (>=2.7.0) "}to be present in the dependency tree.`,
+		);
+	}
 
-  return compiler;
+	return compiler;
 }
 
 const _require = createRequire(import.meta.url);
 
 function tryRequire(id: string, from?: string) {
-  try {
-    return from
-      ? _require(_require.resolve(id, { paths: [from] }))
-      : _require(id);
-  } catch (e) {}
+	try {
+		return from
+			? _require(_require.resolve(id, { paths: [from] }))
+			: _require(id);
+	} catch (e) {}
 }

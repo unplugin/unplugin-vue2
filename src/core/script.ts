@@ -7,42 +7,42 @@ const clientCache = new WeakMap<SFCDescriptor>();
 const ssrCache = new WeakMap<SFCDescriptor>();
 
 export const getResolvedScript = (
-  descriptor: SFCDescriptor,
-  ssr: boolean,
+	descriptor: SFCDescriptor,
+	ssr: boolean,
 ): SFCScriptBlock | null | undefined =>
-  (ssr ? ssrCache : clientCache).get(descriptor);
+	(ssr ? ssrCache : clientCache).get(descriptor);
 
 export function setResolvedScript(
-  descriptor: SFCDescriptor,
-  script: SFCScriptBlock,
-  ssr: boolean,
+	descriptor: SFCDescriptor,
+	script: SFCScriptBlock,
+	ssr: boolean,
 ): void {
-  (ssr ? ssrCache : clientCache).set(descriptor, script);
+	(ssr ? ssrCache : clientCache).set(descriptor, script);
 }
 
 export function resolveScript(
-  descriptor: SFCDescriptor,
-  options: ResolvedOptions,
-  ssr: boolean,
+	descriptor: SFCDescriptor,
+	options: ResolvedOptions,
+	ssr: boolean,
 ): SFCScriptBlock | null {
-  if (!descriptor.script && !descriptor.scriptSetup) {
-    return null;
-  }
+	if (!descriptor.script && !descriptor.scriptSetup) {
+		return null;
+	}
 
-  const cacheToUse = ssr ? ssrCache : clientCache;
-  const cached = cacheToUse.get(descriptor);
-  if (cached) {
-    return cached;
-  }
+	const cacheToUse = ssr ? ssrCache : clientCache;
+	const cached = cacheToUse.get(descriptor);
+	if (cached) {
+		return cached;
+	}
 
-  const resolved = options.compiler.compileScript(descriptor, {
-    ...options.script,
-    id: descriptor.id,
-    isProd: options.isProduction,
-    sourceMap: options.sourceMap,
-  });
+	const resolved = options.compiler.compileScript(descriptor, {
+		...options.script,
+		id: descriptor.id,
+		isProd: options.isProduction,
+		sourceMap: options.sourceMap,
+	});
 
-  cacheToUse.set(descriptor, resolved);
+	cacheToUse.set(descriptor, resolved);
 
-  return resolved;
+	return resolved;
 }
