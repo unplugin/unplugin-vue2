@@ -13,19 +13,19 @@ import TestComponent from "./test-component/TestComponent.vue";
 </script>
 
 <template>
-  <div>
-    <h1>Unplugin-Vue2 Playground</h1>
-    <ScriptSetup msg="prop from parent" />
-    <!-- <TestMultiplySrcImport /> -->
-    <TestBlockSrcImport />
-    <TestScopedCss />
-    <TestCssModules />
-    <TestCustomBlock />
-    <TestEmptyCss />
-    <TestHmr />
-    <TestAssets />
-    <TestES2020Features />
-    <TestComponent />
-    <TestCssVBind />
-  </div>
+	<div>
+		<h1>Unplugin-Vue2 Playground</h1>
+		<ScriptSetup msg="prop from parent" />
+		<!-- <TestMultiplySrcImport /> -->
+		<TestBlockSrcImport />
+		<TestScopedCss />
+		<TestCssModules />
+		<TestCustomBlock />
+		<TestEmptyCss />
+		<TestHmr />
+		<TestAssets />
+		<TestES2020Features />
+		<TestComponent />
+		<TestCssVBind />
+	</div>
 </template>

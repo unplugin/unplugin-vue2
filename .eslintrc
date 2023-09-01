@@ -1,11 +1,11 @@
 {
-  "extends": "@so1ve",
-  "rules": {
-    "@typescript-eslint/restrict-template-expressions": "off",
-    "no-console": "off",
-    "vue/component-api-style": "off",
-    "vue/no-static-inline-styles": "off",
-    "import/no-duplicates": "off",
-    "unicorn/no-array-for-each": "off"
-  }
+	"extends": "@so1ve",
+	"rules": {
+		"@typescript-eslint/restrict-template-expressions": "off",
+		"no-console": "off",
+		"vue/component-api-style": "off",
+		"vue/no-static-inline-styles": "off",
+		"import/no-duplicates": "off",
+		"unicorn/no-array-for-each": "off"
+	}
 }

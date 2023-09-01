@@ -1,11 +1,11 @@
 {
-  "name": "vite-vue2-playground",
-  "private": true,
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "build": "vite build",
-    "dev": "vite",
-    "serve": "vite preview"
-  }
+	"name": "vite-vue2-playground",
+	"private": true,
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"build": "vite build",
+		"dev": "vite",
+		"serve": "vite preview"
+	}
 }
