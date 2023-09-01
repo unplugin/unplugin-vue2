@@ -89,7 +89,7 @@ var __component__ = /*#__PURE__*/__normalizer(
 )`,
   );
 
-  if (devToolsEnabled || (devServer && !isProduction)) {
+  if (devToolsEnabled ??(devServer && !isProduction)) {
     // expose filename during serve for devtools to pickup
     output.push(
       `__component__.options.__file = ${JSON.stringify(
@@ -114,7 +114,7 @@ var __component__ = /*#__PURE__*/__normalizer(
     );
     // check if the template is the only thing that changed
     if (
-      hasFunctional ||
+      hasFunctional ??
       (prevDescriptor && isOnlyTemplateChanged(prevDescriptor, descriptor))
     ) {
       output.push("export const _rerender_only = true");
@@ -262,7 +262,7 @@ async function genScriptCode(
         await linkSrcToDescriptor(script.src, descriptor, pluginContext, false);
       }
       const src = script.src ?? descriptor.filename;
-      const langFallback = (script.src && path.extname(src).slice(1)) || "js";
+      const langFallback = (script.src && path.extname(src).slice(1)) ?? "js";
       const attrsQuery = attrsToQuery(script.attrs, langFallback);
       const srcQuery = script.src ? "&src=true" : "";
       const query = `?vue&type=script${srcQuery}${attrsQuery}`;
@@ -426,7 +426,7 @@ function attrsToQuery(
       }`;
     }
   }
-  if (langFallback || attrs.lang) {
+  if (langFallback ?? attrs.lang) {
     query +=
       "lang" in attrs
         ? forceLangFallback
