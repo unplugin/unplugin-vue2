@@ -91,7 +91,7 @@
 	},
 	"devDependencies": {
 		"@antfu/ni": "^0.21.3",
-		"@so1ve/eslint-config": "^0.120.2",
+		"@so1ve/eslint-config": "^0.121.0",
 		"@so1ve/prettier-config": "^0.120.2",
 		"@types/fs-extra": "^9.0.13",
 		"@types/node": "^18.15.11",
