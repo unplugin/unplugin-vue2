@@ -33,7 +33,7 @@ export async function transformStyle(
 							annotation: false,
 						},
 					},
-			  }
+				}
 			: {}),
 	});
 
@@ -58,7 +58,7 @@ export async function transformStyle(
 				// but actually it is a number
 				result.map as Omit<RawSourceMap, "version"> as ExistingRawSourceMap,
 				filename,
-		  )
+			)
 		: ({ mappings: "" } as any);
 
 	return {
