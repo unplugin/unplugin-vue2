@@ -1,7 +1,7 @@
 {
 	"name": "unplugin-vue2",
 	"version": "0.1.1",
-	"packageManager": "pnpm@8.14.2",
+	"packageManager": "pnpm@8.14.3",
 	"author": "Ray <i@mk1.io> (@so1ve)",
 	"description": "Unplugin for Vue 2.7+.",
 	"keywords": [
