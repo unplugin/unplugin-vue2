@@ -7,11 +7,11 @@ export const createError = (id: string, error: Error | WarningMessage) =>
 				plugin: "vue",
 				message: error.msg,
 				name: "vue-compiler-error",
-		  }
+			}
 		: {
 				id,
 				plugin: "vue",
 				message: error.message,
 				name: error.name,
 				stack: error.stack,
-		  };
+			};
