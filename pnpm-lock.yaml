@@ -13,8 +13,8 @@ importers:
         version: 1.11.0
     devDependencies:
       '@antfu/ni':
-        specifier: ^0.21.3
-        version: 0.21.12
+        specifier: ^0.22.0
+        version: 0.22.0
       '@so1ve/eslint-config':
         specifier: ^0.120.2
         version: 0.120.4(@typescript-eslint/parser@6.13.1)(eslint-plugin-import@2.29.1)(eslint@8.57.0)(prettier@3.3.3)(typescript@5.5.3)(vitest@0.33.0)
@@ -108,8 +108,8 @@ packages:
       '@jridgewell/trace-mapping': 0.3.25
     dev: true
 
-  /@antfu/ni@0.21.12:
-    resolution: {integrity: sha512-2aDL3WUv8hMJb2L3r/PIQWsTLyq7RQr3v9xD16fiz6O8ys1xEyLhhTOv8gxtZvJiTzjTF5pHoArvRdesGL1DMQ==}
+  /@antfu/ni@0.22.0:
+    resolution: {integrity: sha512-qP2zFsmypfWpKnmQcjoqMfYrPRHbqcXnhaUrg3VGqPGFXyN9sKz2+/TvNKByWDqAfuVStE8Fy2ppuVdoWQDjkw==}
     hasBin: true
     dev: true
 
@@ -6910,7 +6910,7 @@ packages:
     resolution: {integrity: sha512-oKWePCxqpd6FlLvGV1VU0x7bkPmmCNolxzjMf4NczoDnQcIWrAF+cPtZn5i6n+RfD2d9i0tzpKnG6Yk168yIyw==}
     hasBin: true
     dependencies:
-      is-core-module: 2.13.1
+      is-core-module: 2.14.0
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
     dev: true
