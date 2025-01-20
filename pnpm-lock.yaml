@@ -80,7 +80,7 @@ importers:
         version: 2.0.0(typescript@5.7.3)
       vite:
         specifier: ^4.2.1
-        version: 4.5.5(@types/node@18.19.71)
+        version: 4.5.7(@types/node@18.19.71)
       vitest:
         specifier: ^0.33.0
         version: 0.33.0
@@ -1671,7 +1671,7 @@ packages:
     resolution: {integrity: sha512-KWhJ9k5nXuNtygPU7+t1rX6baZeqOYLEforUPjgNDBnLicfHCoi48H87Q8XyLZOrNNsmhuwKqtpDQWjEFe6Ekg==}
     dependencies:
       '@babel/parser': 7.23.9
-      postcss: 8.4.38
+      postcss: 8.5.1
       source-map: 0.6.1
     optionalDependencies:
       prettier: 2.8.8
@@ -3284,8 +3284,8 @@ packages:
     resolution: {integrity: sha512-WFj2isz22JahUv+B788TlO3N6zL3nNJGU8CcZbPZvVEkBPaJdCV4vy5wyghty5ROFbCRnm132v8BScu5/1BQ8g==}
     dependencies:
       debug: 3.2.7
-      is-core-module: 2.13.1
-      resolve: 1.22.8
+      is-core-module: 2.16.1
+      resolve: 1.22.10
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3469,7 +3469,7 @@ packages:
       eslint: 8.57.1
       eslint-import-resolver-node: 0.3.9
       eslint-module-utils: 2.12.0(@typescript-eslint/parser@6.13.1)(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.1)
-      get-tsconfig: 4.8.1
+      get-tsconfig: 4.9.0
       has: 1.0.4
       is-core-module: 2.16.1
       is-glob: 4.0.3
@@ -4313,8 +4313,8 @@ packages:
       resolve-pkg-maps: 1.0.0
     dev: true
 
-  /get-tsconfig@4.8.1:
-    resolution: {integrity: sha512-k9PN+cFBmaLWtVz29SkUoqU5O0slLuHJXt/2P+tMVFT+phsSGXGkp9t3rQIqdz0e+06EHNGs3oM6ZX1s2zHxRg==}
+  /get-tsconfig@4.9.0:
+    resolution: {integrity: sha512-52n24W52sIueosRe0XZ8Ex5Yle+WbhfCKnV/gWXpbVR8FXNTfqdKEKUSypKso66VRHTvvcQxL44UTZbJRlCTnw==}
     dependencies:
       resolve-pkg-maps: 1.0.0
     dev: true
@@ -6680,15 +6680,6 @@ packages:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
     dev: true
 
-  /postcss@8.4.38:
-    resolution: {integrity: sha512-Wglpdk03BSfXkHoQa3b/oulrotAkwrlLDRSOb9D0bN86FdRyE9lppSp33aHNPgBa0JKCoB+drFLZkQoRRYae5A==}
-    engines: {node: ^10 || ^12 || >=14}
-    dependencies:
-      nanoid: 3.3.8
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
-    dev: true
-
   /postcss@8.5.1:
     resolution: {integrity: sha512-6oz2beyjc5VMn/KV1pPw8fliQkhBXrVn1Z3TVyqZxU8kZpzEKhBdmCFqI6ZbmGtamQvQGuU1sgPTk8ZrXDD7jQ==}
     engines: {node: ^10 || ^12 || >=14}
@@ -8217,7 +8208,7 @@ packages:
       mlly: 1.7.4
       pathe: 1.1.1
       picocolors: 1.1.1
-      vite: 4.5.5(@types/node@18.19.71)
+      vite: 4.5.7(@types/node@18.19.71)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -8229,8 +8220,8 @@ packages:
       - terser
     dev: true
 
-  /vite@4.5.5(@types/node@18.19.71):
-    resolution: {integrity: sha512-ifW3Lb2sMdX+WU91s3R0FyQlAyLxOzCSCP37ujw0+r5POeHPwe6udWVIElKQq8gk3t7b8rkmvqC6IHBpCff4GQ==}
+  /vite@4.5.7(@types/node@18.19.71):
+    resolution: {integrity: sha512-vNeGkxk5lbs2CNXFz5nVSKjivMr1oYSb+xcClCSgH9oe/9FK3xzDgjjKTvO0Udc48eCV2AY4GYT61D6Y3iX9iQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -8317,7 +8308,7 @@ packages:
       strip-literal: 1.3.0
       tinybench: 2.5.1
       tinypool: 0.6.0
-      vite: 4.5.5(@types/node@18.19.71)
+      vite: 4.5.7(@types/node@18.19.71)
       vite-node: 0.33.0(@types/node@18.19.71)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
